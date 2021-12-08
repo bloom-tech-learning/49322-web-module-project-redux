@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { addMovie } from './../actions/movieActions';
-import { connect } from 'react-redux';
+import React, { useState } from 'react'
+import { addMovie } from './../actions/movieActions'
+import { connect } from 'react-redux'
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom'
 
 const AddMovieForm = (props) => {
-    const { push } = useHistory();
+    console.log('props in AddMovieForm.js: ', props)
+    const { push } = useHistory()
 
     const [movie, setMovie] = useState({
         title: "",
@@ -13,16 +14,20 @@ const AddMovieForm = (props) => {
         genre: "",
         metascore: 0,
         description:""
-    });
+    })
 
     const handleChange = (e) => {
         setMovie({
             ...movie,
             [e.target.name]: e.target.value
-        });
+        })
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('click add button')
+        props.addMovie(movie)
+        push('/movies')
     }
 
     const { title, director, genre, metascore, description } = movie;
@@ -58,13 +63,13 @@ const AddMovieForm = (props) => {
                         			
                     </div>
                     <div className="modal-footer">
-                        <input type="submit" className="btn btn-success" value="Add"/>
+                        <input onClick = {handleSubmit} type="submit" className="btn btn-success" value="Add"/>
                         <Link to={`/movies`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
                     </div>
                 </form>
             </div>
         </div>
-    </div>);
+    </div>)
 }
 
-export default AddMovieForm;
+export default connect(null, { addMovie })(AddMovieForm)
