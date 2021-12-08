@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { deleteMovie } from '../actions/movieActions'
 
-const Movie = (props) => {
-
-    console.log('props in Movie.js: ', props)
-
+const Movie = (props) => {   
+    
     const { id } = useParams()
     const { push } = useHistory()
 
@@ -14,7 +12,6 @@ const Movie = (props) => {
     const movie = movies.find(movie=>movie.id===Number(id))
 
     const handleDelete = () => {
-        console.log('1. click delete button', movie.id)
         props.deleteMovie(movie.id)
         push('/movies')
     }
@@ -58,8 +55,7 @@ const Movie = (props) => {
     </div>)
 }
 
-const mapStateToProps = (state) => {
-    console.log('state in Movie.js: ', state)
+const mapStateToProps = (state) => {    
     return ({
         movies: state.movieReducer.movies
     })
