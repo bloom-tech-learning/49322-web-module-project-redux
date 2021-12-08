@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const MovieHeader = (props) => {
-    const appTitle = "";
-    const displayFavorites = true;
+    console.log('props in MovieHeader.js: ', props) 
+    const appTitle = props.appTitle 
+    const displayFavorites = true 
     
     return(<div className="table-title">
         <div className="row">
@@ -16,7 +18,16 @@ const MovieHeader = (props) => {
             <Link to="/movies/add" className="btn btn-sm btn-success"><i className="material-icons">&#xE147;</i> <span>Add New Movie</span></Link>
         </div>
         </div>
-    </div>);
+    </div>) 
 }
 
-export default MovieHeader;
+    const mapStateToProps = (state) => ({ appTitle: state.movieReducer.appTitle })
+
+/* const mapStateToProps = (state) => {
+    console.log('state in MovieHeader', state);
+    return ({
+        appTitle: state.movieReducer.appTitle     
+    })
+} */
+
+export default connect(mapStateToProps)(MovieHeader)
