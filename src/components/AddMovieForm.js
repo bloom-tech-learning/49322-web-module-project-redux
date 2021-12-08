@@ -8,7 +8,7 @@ const AddMovieForm = (props) => {
     const { push } = useHistory()
 
     const [movie, setMovie] = useState({
-        
+        id:Date.now(),
         title: "",
         director: "",
         genre: "",
@@ -24,7 +24,7 @@ const AddMovieForm = (props) => {
     }
 
     const handleSubmit = () => {       
-        props.addMovie({...movie, id:Date.now()})
+        props.addMovie(movie)
         push('/movies')
     }
 
